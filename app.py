@@ -77,8 +77,16 @@ class AbuseDetector:
 # Labels & Thresholds
 # -------------------------------
 LABEL_NAMES = ["Ethnicity", "Other", "Political", "Racism", "Religion", "Sexual / Gender", "Threat", "Troll"]
-DEFAULT_THRESHOLDS = {"Troll": 0.85, "Sexual / Gender": 0.75, "Threat": 0.70,
-                      "Other": 0.60, "Ethnicity": 0.60, "Racism": 0.60, "Religion": 0.65, "Political": 0.70}
+# DEFAULT_THRESHOLDS = {"Troll": 0.85, "Sexual / Gender": 0.75, "Threat": 0.70,
+#                       "Other": 0.60, "Ethnicity": 0.60, "Racism": 0.60, "Religion": 0.65, "Political": 0.70}
+DEFAULT_THRESHOLDS= {"Threat": 0.6,
+    "Racism": 0.4,
+    "Religion": 0.4,
+    "Sexual / Gender": 0.35,
+    "Troll": 0.35,
+    "Political": 0.4,
+    "Ethnicity": 0.4,
+    "Other": 0.35}
 EXAMPLE_TEXTS = [
     "You're so stupid and worthless, nobody likes you",
     "I respect everyone's beliefs and opinions",
@@ -94,7 +102,7 @@ def main():
         st.session_state.thresholds = DEFAULT_THRESHOLDS.copy()
     with st.sidebar:
         st.markdown("### ⚙️ Configuration")
-        st.info("model_weights.pt", icon="✅")
+        st.info("bert_cyberbullying.pt", icon="✅")
         for label in LABEL_NAMES:
             st.session_state.thresholds[label] = st.slider(
                 f"{label}", 0.0, 1.0, DEFAULT_THRESHOLDS[label], 0.05, key=f"threshold_{label}")
@@ -112,7 +120,7 @@ def main():
     if 'detector' not in st.session_state:
         try:
             with st.spinner("Loading model..."):
-                st.session_state.detector = AbuseDetector("model_weights.pt", LABEL_NAMES)
+                st.session_state.detector = AbuseDetector("bert_cyberbullying.pt", LABEL_NAMES)
         except Exception as e:
             st.error(f"Failed to load model: {e}")
             st.stop()
