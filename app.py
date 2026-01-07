@@ -86,12 +86,13 @@ DEFAULT_THRESHOLDS= {"Threat": 0.6,
     "Troll": 0.35,
     "Political": 0.4,
     "Ethnicity": 0.4,
-    "Other": 0.35}
+    "Other": 0.45}
 EXAMPLE_TEXTS = [
     "You're so stupid and worthless, nobody likes you",
     "I respect everyone's beliefs and opinions",
     "That was an amazing performance, great job!",
-    "People like you should go back to where you came from"
+    "People like you should go back to where you came from, you are worthless",
+    "Your beliefs don’t excuse bad behavior."
 ]
 
 # -------------------------------
